@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>企业微信专用表单</title>
+    <style>
+        body{margin:0;padding:0;text-align:center;margin-top:20%;font-size:18px;color:#333;font-family:微软雅黑;}
+        h1{font-size:22px;color:#e63946;}
+    </style>
+</head>
+<body>
+<script type="text/javascript">
+    // 你的目标表单链接，已经帮你填好，不用改
+    const targetUrl = "https://forms.office.com/r/V1chz7TG2B20";
+    // 获取当前访问的客户端标识
+    const userAgent = navigator.userAgent.toLowerCase();
+    // 判断规则：企业微信=直接跳转，微信=显示屏蔽提示，其他=正常跳转
+    const isWxWork = userAgent.includes('wxwork');
+    const isWeChat = userAgent.includes('micromessenger');
+
+    if (isWxWork) {
+        // ✅ 企业微信：无弹窗、无按钮、直接进入表单，毫秒级跳转
+        window.location.replace(targetUrl);
+    } else if (isWeChat) {
+        // ❌ 微信：完全屏蔽，只显示提示，无法访问表单
+        document.write('<h1>❌ 此链接仅支持企业微信打开</h1><br/><p>请使用企业微信扫码访问，微信客户端无法打开</p>');
+    } else {
+        // 浏览器/支付宝/其他扫码工具：正常打开表单
+        window.location.replace(targetUrl);
+    }
+</script>
+</body>
+</html>
